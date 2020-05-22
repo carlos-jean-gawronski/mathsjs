@@ -1,7 +1,10 @@
 import orderArray from '../../src/utils/orderArray';
 import middleValue from '../../src/utils/middleValue';
 import { simpleAverage } from '../../src/utils/averages';
-import fashion from '../../src/utils/fashion';
+import fashion, {
+  checkRepetitionOnMaxFrequency,
+} from '../../src/utils/fashion';
+import { organizer } from '../../src/utils/frequencies';
 
 const data: any = {};
 data.arr = [1, 5, 10, 10, 5, 5, 6, 1, 4, 10, 13, 19, 100, 89, 67132, 712, 23];
@@ -35,6 +38,38 @@ test('finds the smallest value in an array', () => {
 
 test('gets the most repetitive value in an array', () => {
   const fashionResult = fashion(data.arr);
-  console.log(fashionResult);
-  // expect(fashionResult).toBe(1);
+  expect(fashionResult).toBe(7.5);
+});
+
+test('test the organizer function', () => {
+  const organizerResult = organizer(data.arr);
+  expect(organizerResult).toHaveProperty('arrayLenght', 17);
+  expect(organizerResult).toHaveProperty('keys');
+  expect(organizerResult).toHaveProperty('values');
+});
+
+test('test repetition checker function with no repetition', () => {
+  const checkRepetition = checkRepetitionOnMaxFrequency([
+    1,
+    2,
+    3,
+    4,
+    5,
+    7,
+    8,
+    12,
+    23,
+  ]);
+  expect(checkRepetition).toHaveProperty('organized');
+  expect(checkRepetition).toHaveProperty('maxValue');
+  expect(checkRepetition).toHaveProperty('repetitionOccurs', false);
+  expect(checkRepetition).toHaveProperty('indexOfRepetition');
+});
+
+test('test repetition checker function with repetition', () => {
+  const checkRepetition = checkRepetitionOnMaxFrequency(data.arr);
+  expect(checkRepetition).toHaveProperty('organized');
+  expect(checkRepetition).toHaveProperty('maxValue');
+  expect(checkRepetition).toHaveProperty('repetitionOccurs', true);
+  expect(checkRepetition).toHaveProperty('indexOfRepetition');
 });
