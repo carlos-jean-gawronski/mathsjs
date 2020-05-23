@@ -1,11 +1,16 @@
 import orderArray from './orderArray';
-// eslint-disable-next-line no-unused-vars
-import { checkRepetitionOnMaxFrequency, IRepetitionOnMax } from './fashion';
+import { checkRepetitionOnMaxFrequency } from './fashion';
 
 interface IFrequency {
   arrayLenght: number;
   keys: Array<number>;
   values: Array<number>;
+}
+
+interface IAbsoluteFrequency {
+  repetitiveValues: Array<number>;
+  repeatedTimes: number;
+  totalSample: number;
 }
 
 export function organizer(array: Array<number>): IFrequency {
@@ -25,28 +30,25 @@ export function organizer(array: Array<number>): IFrequency {
   return { arrayLenght: array.length, keys: a, values: b };
 }
 
-export function absolute(array: Array<number>) {
+export function absolute(array: Array<number>): IAbsoluteFrequency {
   const data = checkRepetitionOnMaxFrequency(array);
-  data.repetitionOccurs && data.indexOfRepetition.length > 1
-    ? sendAbsoluteComplex(data)
-    : sendSimpleValues(data);
-  function sendAbsoluteComplex(data: IRepetitionOnMax) {
+  let finalReturn: IAbsoluteFrequency;
+  if (data.repetitionOccurs && data.indexOfRepetition.length > 1) {
     let repetitiveValues: Array<number> = [];
     for (let i = 0; i < data.indexOfRepetition.length; i++) {
       repetitiveValues.push(data.organized.keys[data.indexOfRepetition[i]]);
     }
-    return {
+    finalReturn = {
       repetitiveValues,
       repeatedTimes: data.maxValue,
       totalSample: data.organized.arrayLenght,
     };
-  }
-
-  function sendSimpleValues(data: IRepetitionOnMax) {
-    return {
-      repetitiveValues: 0,
+  } else {
+    finalReturn = {
+      repetitiveValues: data.organized.keys,
       repeatedTimes: data.maxValue,
       totalSample: data.organized.arrayLenght,
     };
   }
+  return finalReturn;
 }

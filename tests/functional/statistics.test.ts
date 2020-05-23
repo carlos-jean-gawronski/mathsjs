@@ -4,8 +4,11 @@ import * as data from '../../dataTest.json';
 
 test('shows absolute frequency on a given sample', () => {
   const absoluteResult = absolute(data.arr);
-  console.log(absoluteResult);
-  // expect(absoluteResult).toBe()
+  expect(absoluteResult).toHaveProperty('repetitiveValues');
+  expect(absoluteResult).toHaveProperty('repeatedTimes');
+  expect(absoluteResult).toHaveProperty('totalSample');
+  expect(absoluteResult.repeatedTimes).toBe(6);
+  expect(absoluteResult.totalSample).toBe(42);
 });
 
 test('shows the most repetitive value', () => {
