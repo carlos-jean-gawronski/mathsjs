@@ -1,4 +1,6 @@
 import orderArray from './orderArray';
+// eslint-disable-next-line no-unused-vars
+import { checkRepetitionOnMaxFrequency, IRepetitionOnMax } from './fashion';
 
 interface IFrequency {
   arrayLenght: number;
@@ -23,13 +25,28 @@ export function organizer(array: Array<number>): IFrequency {
   return { arrayLenght: array.length, keys: a, values: b };
 }
 
-export function absolute(array: Array<number>): Object {
-  let organized = organizer(array);
-  let data: object = {};
-  for (let i = 0; i < organized.arrayLenght; i++) {
-    Object.defineProperty(data, organized.keys[i], {
-      value: organized.values[i],
-    });
+export function absolute(array: Array<number>) {
+  const data = checkRepetitionOnMaxFrequency(array);
+  data.repetitionOccurs && data.indexOfRepetition.length > 1
+    ? sendAbsoluteComplex(data)
+    : sendSimpleValues(data);
+  function sendAbsoluteComplex(data: IRepetitionOnMax) {
+    let repetitiveValues: Array<number> = [];
+    for (let i = 0; i < data.indexOfRepetition.length; i++) {
+      repetitiveValues.push(data.organized.keys[data.indexOfRepetition[i]]);
+    }
+    return {
+      repetitiveValues,
+      repeatedTimes: data.maxValue,
+      totalSample: data.organized.arrayLenght,
+    };
   }
-  return data;
+
+  function sendSimpleValues(data: IRepetitionOnMax) {
+    return {
+      repetitiveValues: 0,
+      repeatedTimes: data.maxValue,
+      totalSample: data.organized.arrayLenght,
+    };
+  }
 }
