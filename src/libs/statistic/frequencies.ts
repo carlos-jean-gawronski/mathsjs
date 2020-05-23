@@ -1,36 +1,16 @@
-import orderArray from './orderArray';
 import { checkRepetitionOnMaxFrequency } from './fashion';
-
-interface IFrequency {
-  arrayLenght: number;
-  keys: Array<number>;
-  values: Array<number>;
-}
 
 interface IAbsoluteFrequency {
   repetitiveValues: Array<number>;
   repeatedTimes: number;
   totalSample: number;
 }
-
-export function organizer(array: Array<number>): IFrequency {
-  let a: any = [],
-    b: any = [],
-    prev;
-  orderArray(array);
-  for (let i = 0; i < array.length; i++) {
-    if (array[i] !== prev) {
-      a.push(array[i]);
-      b.push(1);
-    } else {
-      b[b.length - 1]++;
-    }
-    prev = array[i];
-  }
-  return { arrayLenght: array.length, keys: a, values: b };
+interface IReturnRelative {
+  relativeFrequency: number;
+  dataToAbsoluteFrequency: IAbsoluteFrequency;
 }
 
-export function absolute(array: Array<number>): IAbsoluteFrequency {
+export function mostAppeared(array: Array<number>): IAbsoluteFrequency {
   const data = checkRepetitionOnMaxFrequency(array);
   let finalReturn: IAbsoluteFrequency;
   if (data.repetitionOccurs && data.indexOfRepetition.length > 1) {
@@ -51,4 +31,19 @@ export function absolute(array: Array<number>): IAbsoluteFrequency {
     };
   }
   return finalReturn;
+}
+
+export function mostAppearedRelative(array: Array<number>): IReturnRelative {
+  let finalValue: number = 0;
+  const resultAbsolute = mostAppeared(array);
+  for (let i = 0; i < resultAbsolute.repetitiveValues.length; i++) {
+    finalValue +=
+      resultAbsolute.repetitiveValues[i] * resultAbsolute.repeatedTimes;
+  }
+  finalValue /= resultAbsolute.totalSample;
+  const returnObject: IReturnRelative = {
+    relativeFrequency: finalValue,
+    dataToAbsoluteFrequency: resultAbsolute,
+  };
+  return returnObject;
 }

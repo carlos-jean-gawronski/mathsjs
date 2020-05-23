@@ -1,4 +1,4 @@
-import { organizer } from './frequencies';
+import { organizer } from '../../utils/tools';
 
 export interface IRepetitionOnMax {
   repetitionOccurs: boolean;

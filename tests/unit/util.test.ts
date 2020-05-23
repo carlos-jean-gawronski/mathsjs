@@ -1,10 +1,9 @@
-import orderArray from '../../src/utils/orderArray';
-import middleValue from '../../src/utils/middleValue';
-import { simpleAverage } from '../../src/utils/averages';
+import { orderArray, middleValue } from '../../src/utils/tools';
+import { simpleAverage } from '../../src/libs/statistic/averages';
 import fashion, {
   checkRepetitionOnMaxFrequency,
-} from '../../src/utils/fashion';
-import { organizer } from '../../src/utils/frequencies';
+} from '../../src/libs/statistic/fashion';
+import { organizer } from '../../src/utils/tools';
 
 const data: any = {};
 data.arr = [1, 5, 10, 10, 5, 5, 6, 1, 4, 10, 13, 19, 100, 89, 67132, 712, 23];
