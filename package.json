@@ -2,11 +2,13 @@
   "name": "mathsjs",
   "version": "1.0.0",
   "description": "Math helper package",
-  "main": "index.js",
+  "main": "dist/src/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "lint": "npx eslint --fix && npx prettier --config ./.prettierrc --write .",
     "test": "npx jest --verbose",
-    "compile": "npx tsc"
+    "compile": "npx tsc",
+    "publish:prepare": "npm run lint && npx jest --verbose --bail && npm run compile"
   },
   "husky": {
     "hooks": {
