@@ -1,5 +1,5 @@
 import { orderArray, middleValue } from '../../src/utils/tools';
-import { simpleAverage } from '../../src/libs/statistic/averages';
+import Averages from '../../src/libs/statistic/averages';
 import fashion, {
   checkRepetitionOnMaxFrequency,
 } from '../../src/libs/statistic/fashion';
@@ -25,8 +25,9 @@ test('gets the exact middle value in an orderd array', () => {
 });
 
 test('gets the simple average of an array', () => {
-  const average = simpleAverage(data.arr);
-  expect(average).toBe(4008.529411764706);
+  const average = new Averages();
+  const result = average.simpleAverage(data.arr);
+  expect(result).toBe(4008.529411764706);
 });
 
 test('finds the smallest value in an array', () => {

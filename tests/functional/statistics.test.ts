@@ -3,6 +3,7 @@ import {
   mostAppearedRelative,
 } from '../../src/libs/statistic/frequencies';
 import fashion from '../../src/libs/statistic/fashion';
+import GraphicsAnalizer from '../../src/libs/statistic/graphicsAnalizer';
 import * as data from '../../dataTest.json';
 
 test('shows the absolute frequency on a given sample', () => {
@@ -26,4 +27,11 @@ test('shows the relative frequency on a given sample', () => {
     1.5714285714285714
   );
   expect(relativeResult).toHaveProperty('dataToAbsoluteFrequency');
+});
+
+test('shows each frequency percentage for graphic', () => {
+  const ga = new GraphicsAnalizer();
+  const result = ga.simplePercentageGraphic(data.arr, 2);
+  expect(result).toHaveProperty('keys');
+  expect(result).toHaveProperty('values');
 });
